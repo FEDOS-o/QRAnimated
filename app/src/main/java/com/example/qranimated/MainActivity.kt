@@ -10,38 +10,19 @@ import android.widget.TextView
 import com.example.qranimated.databinding.ActivityMainBinding
 import kotlin.math.max
 
-class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
-
-    var srcBitmap: Bitmap? = null
-    var dstBitmap: Bitmap? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        srcBitmap = BitmapFactory.decodeResource(this.resources, R.drawable.cover)
-
-        dstBitmap = srcBitmap!!.copy(srcBitmap!!.config, true)
-
-        binding.imageView.setImageBitmap(dstBitmap)
-
-        binding.SlideSigma.setOnSeekBarChangeListener(this)
-
     }
 
-    fun ButtonFlipOnClick(view: View) {
-        myFlip(srcBitmap!!, srcBitmap!!)
-        doBlur()
-    }
+    fun StartScanner(view: View) {
 
-    fun doBlur() {
-        val sigma = max(0.1F, binding.SlideSigma.progress / 10F)
-        myBlur(srcBitmap!!, dstBitmap!!, sigma)
     }
 
 
@@ -60,12 +41,4 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             System.loadLibrary("qranimated")
         }
     }
-
-    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        doBlur()
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 }
